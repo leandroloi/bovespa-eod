@@ -20,12 +20,13 @@ class DaoBase:
         self.user = user
         self.password = password
 
+    @abstractmethod
+    def get_connection(self): pass
 
     @abstractmethod
-    def last_eod_updated(self): pass
+    def store_eod_data(self, quote): pass
 
-    @abstractmethod
-    def set_eod_last_update(self): pass
+
 
 
 
