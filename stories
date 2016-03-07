@@ -1,0 +1,76 @@
+Stories:
+-----------------------------------------------------------------------------
+STORY CODE:1
+FRONT:
+As a program I want to download the daily/month/year EOD data from bovespa website
+PRIORITY: must
+ESTIMATE: 30 min
+REALIZED: 10h
+
+BACK:
+Confirmations:
+The program must consult redis the check difference between dates to write the right filename
+The program must download the correct file
+
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+STORY CODE:2
+FRONT:
+As a program I want to extract a zipfile
+PRIORITY: must
+ESTIMATE: 30 min
+REALIZED: 20 mim
+
+BACK:
+Confirmations:
+The program must check if the zipfile is downloaded correctly
+The program must extract a zipfile
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+STORY CODE:3
+FRONT:
+As a program I want to read a txt file and structure the data
+PRIORITY: must
+ESTIMATE: 1h
+REALIZED: 3h
+
+BACK:
+Confirmations:
+The program must read the txt file
+The program must check if the line is correctly structured
+The program must parse the line and structure the data
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+FRONT:
+As a program I want to check if there is any split or dividends to update the EOD
+data
+PRIORITY: must
+ESTIMATE: 1h
+REALIZED:
+STATUS: CANCELED.
+
+BACK:
+Confirmations:
+The program must make a API request to get any split or dividend in the period to
+be applied to data.
+The program must update the adjusted closed price for the entire symbol historical
+
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+FRONT:
+As a program I want to insert the structured data to a REDIS to be stored.
+PRIORITY: must
+ESTIMATE: 30 min
+REALIZED:
+
+BACK:
+Confirmations:
+The program must read the txt file
+The program must check if the line is correctly structured
+The program must parse the line and structure the data
+-----------------------------------------------------------------------------
+
