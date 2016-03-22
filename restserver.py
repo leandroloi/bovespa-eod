@@ -18,5 +18,4 @@ application = default_app()
 import controllers.ping # necessary so that Bottle will install its routes
 
 if int(port) == int(DEBUG_PORT): #debugging
-    print 'Starting on port: {}'.format(port)
     run(application, host='0.0.0.0', port=port)

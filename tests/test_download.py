@@ -9,6 +9,12 @@ import scrappers.bovespa as bvmf
 from scrappers.parsers import bovespa_parser
 
 __author__ = 'leandroloi'
+__credits__ = ["Leandro Loi"]
+__license__ = "GPL"
+__version__ = "0.0.1"
+__maintainer__ = "Leandro Loi"
+__email__ = "leandroloi at gmail dot com"
+__status__ = "Development"
 
 
 class DownloadTestCase(unittest.TestCase):
@@ -18,9 +24,10 @@ class DownloadTestCase(unittest.TestCase):
         self.bovespa_file_manager = bvmf.Bovespa()
         self.redis = fakeredis.FakeStrictRedis()
         self.analysable_files = {'COTAHIST_A1988.ZIP': 'COTAHIST_A1988.ZIP', 'COTAHIST_M052015.ZIP': 'COTAHIST_M052015.ZIP', 'COTAHIST_D06012016.ZIP': 'COTAHIST_D06012016.ZIP', 'COTAHIST_D22012016.ZIP': 'COTAHIST_D22012016.ZIP', 'COTAHIST_A1996.ZIP': 'COTAHIST_A1996.ZIP', 'COTAHIST_M042015.ZIP': 'COTAHIST_M042015.ZIP', 'COTAHIST_A2009.ZIP': 'COTAHIST_A2009.ZIP', 'COTAHIST_A1986.ZIP': 'COTAHIST_A1986.ZIP', 'COTAHIST_D05012016.ZIP': 'COTAHIST_D05012016.ZIP', 'COTAHIST_D10022016.ZIP': 'COTAHIST_D10022016.ZIP', 'COTAHIST_D07012016.ZIP': 'COTAHIST_D07012016.ZIP', 'COTAHIST_A1992.ZIP': 'COTAHIST_A1992.ZIP', 'COTAHIST_A1989.ZIP': 'COTAHIST_A1989.ZIP', 'COTAHIST_A1990.ZIP': 'COTAHIST_A1990.ZIP', 'COTAHIST_D14012016.ZIP': 'COTAHIST_D14012016.ZIP', 'COTAHIST_A2012.ZIP': 'COTAHIST_A2012.ZIP', 'COTAHIST_M032015.ZIP': 'COTAHIST_M032015.ZIP', 'COTAHIST_D15022016.ZIP': 'COTAHIST_D15022016.ZIP', 'COTAHIST_D19022016.ZIP': 'COTAHIST_D19022016.ZIP', 'COTAHIST_D29012016.ZIP': 'COTAHIST_D29012016.ZIP', 'COTAHIST_D05022016.ZIP': 'COTAHIST_D05022016.ZIP', 'COTAHIST_D02022016.ZIP': 'COTAHIST_D02022016.ZIP', 'COTAHIST_A2000.ZIP': 'COTAHIST_A2000.ZIP', 'COTAHIST_D22022016.ZIP': 'COTAHIST_D22022016.ZIP', 'COTAHIST_M112015.ZIP': 'COTAHIST_M112015.ZIP', 'COTAHIST_A2003.ZIP': 'COTAHIST_A2003.ZIP', 'COTAHIST_D23022016.ZIP': 'COTAHIST_D23022016.ZIP', 'COTAHIST_A2010.ZIP': 'COTAHIST_A2010.ZIP', 'COTAHIST_A1991.ZIP': 'COTAHIST_A1991.ZIP', 'COTAHIST_A2014.ZIP': 'COTAHIST_A2014.ZIP', 'COTAHIST_D04012016.ZIP': 'COTAHIST_D04012016.ZIP', 'COTAHIST_D27012016.ZIP': 'COTAHIST_D27012016.ZIP', 'COTAHIST_D26022016.ZIP': 'COTAHIST_D26022016.ZIP', 'COTAHIST_D18022016.ZIP': 'COTAHIST_D18022016.ZIP', 'COTAHIST_D20012016.ZIP': 'COTAHIST_D20012016.ZIP', 'COTAHIST_A2011.ZIP': 'COTAHIST_A2011.ZIP', 'COTAHIST_D25022016.ZIP': 'COTAHIST_D25022016.ZIP', 'COTAHIST_A1994.ZIP': 'COTAHIST_A1994.ZIP', 'COTAHIST_D17022016.ZIP': 'COTAHIST_D17022016.ZIP', 'COTAHIST_D28012016.ZIP': 'COTAHIST_D28012016.ZIP', 'COTAHIST_A2001.ZIP': 'COTAHIST_A2001.ZIP', 'COTAHIST_D21012016.ZIP': 'COTAHIST_D21012016.ZIP', 'COTAHIST_A2007.ZIP': 'COTAHIST_A2007.ZIP', 'COTAHIST_A2013.ZIP': 'COTAHIST_A2013.ZIP', 'COTAHIST_D04022016.ZIP': 'COTAHIST_D04022016.ZIP', 'COTAHIST_D19012016.ZIP': 'COTAHIST_D19012016.ZIP', 'COTAHIST_A2016.ZIP': 'COTAHIST_A2016.ZIP', 'COTAHIST_M062015.ZIP': 'COTAHIST_M062015.ZIP', 'COTAHIST_D01022016.ZIP': 'COTAHIST_D01022016.ZIP', 'COTAHIST_D29022016.ZIP': 'COTAHIST_D29022016.ZIP', 'COTAHIST_D18012016.ZIP': 'COTAHIST_D18012016.ZIP', 'COTAHIST_M012016.ZIP': 'COTAHIST_M012016.ZIP', 'COTAHIST_M092015.ZIP': 'COTAHIST_M092015.ZIP', 'COTAHIST_M102015.ZIP': 'COTAHIST_M102015.ZIP', 'COTAHIST_D12012016.ZIP': 'COTAHIST_D12012016.ZIP', 'COTAHIST_D16022016.ZIP': 'COTAHIST_D16022016.ZIP', 'COTAHIST_D15012016.ZIP': 'COTAHIST_D15012016.ZIP', 'COTAHIST_D11022016.ZIP': 'COTAHIST_D11022016.ZIP', 'COTAHIST_D13012016.ZIP': 'COTAHIST_D13012016.ZIP', 'COTAHIST_D08012016.ZIP': 'COTAHIST_D08012016.ZIP', 'COTAHIST_M072015.ZIP': 'COTAHIST_M072015.ZIP', 'COTAHIST_D03022016.ZIP': 'COTAHIST_D03022016.ZIP', 'COTAHIST_A1995.ZIP': 'COTAHIST_A1995.ZIP', 'COTAHIST_A2002.ZIP': 'COTAHIST_A2002.ZIP', 'COTAHIST_M022016.ZIP': 'COTAHIST_M022016.ZIP', 'COTAHIST_A1993.ZIP': 'COTAHIST_A1993.ZIP', 'COTAHIST_A1998.ZIP': 'COTAHIST_A1998.ZIP', 'COTAHIST_M082015.ZIP': 'COTAHIST_M082015.ZIP', 'COTAHIST_A2005.ZIP': 'COTAHIST_A2005.ZIP', 'COTAHIST_A2015.ZIP': 'COTAHIST_A2015.ZIP', 'COTAHIST_D12022016.ZIP': 'COTAHIST_D12022016.ZIP', 'COTAHIST_A1997.ZIP': 'COTAHIST_A1997.ZIP', 'COTAHIST_A2006.ZIP': 'COTAHIST_A2006.ZIP', 'COTAHIST_D24022016.ZIP': 'COTAHIST_D24022016.ZIP', 'COTAHIST_D26012016.ZIP': 'COTAHIST_D26012016.ZIP', 'COTAHIST_A2008.ZIP': 'COTAHIST_A2008.ZIP', 'COTAHIST_A1999.ZIP': 'COTAHIST_A1999.ZIP', 'COTAHIST_A1987.ZIP': 'COTAHIST_A1987.ZIP', 'COTAHIST_A2004.ZIP': 'COTAHIST_A2004.ZIP', 'COTAHIST_M122015.ZIP': 'COTAHIST_M122015.ZIP', 'COTAHIST_D11012016.ZIP': 'COTAHIST_D11012016.ZIP'}
+        self.bovespa_url_base = 'http://bvmf.bmfbovespa.com.br'
 
     def test_download_file(self):
-        files = self.download_manager.get_page('http://www.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A2010.ZIP')
+        files = self.download_manager.get_page(self.bovespa_url_base + '/InstDados/SerHist/COTAHIST_A2010.ZIP')
         self.assertIsNotNone(files)
 
     def test_list_of_files_to_download_same_month(self):
@@ -46,7 +53,7 @@ class DownloadTestCase(unittest.TestCase):
         self.assertListEqual(same_month, files_list)
 
     def test_scrap_filename_from_page(self):
-        url = 'http://www.bmfbovespa.com.br/pt-br/cotacoes-historicas/FormSeriesHistoricasArq.asp'
+        url = self.bovespa_url_base + '/pt-br/cotacoes-historicas/FormSeriesHistoricasArq.asp'
         result = self.bovespa_file_manager.download_list_of_files_from_page(url)
         self.assertDictContainsSubset(self.analysable_files, result)
 
@@ -71,8 +78,8 @@ class DownloadTestCase(unittest.TestCase):
         f = os.path.join(os.path.abspath(os.path.dirname(__file__))) + '/res/COTAHIST_D29022016.TXT'
         fh = open(f, 'rb')
         try:
-            bovespa_parser.parse_historic_data(fh)
-            self.assertEqual(True,True)
+            bovespa_parser.parse_historic_data_file(fh)
+            self.assertEqual(True, True)
         except Exception, e:
             self.assertEqual(True, False, e)
 
@@ -82,8 +89,7 @@ class DownloadTestCase(unittest.TestCase):
         f = os.path.join(os.path.abspath(os.path.dirname(__file__))) + '/res/COTAHIST_D29022016_EXCEPTION.TXT'
         fh = open(f, 'rb')
         try:
-            bovespa_parser.parse_historic_data(fh)
-            self.assertEqual(False, True)
+            bovespa_parser.parse_historic_data_file(fh)
         except Exception, e:
             self.assertEqual(True, True)
 
@@ -111,17 +117,3 @@ class DownloadTestCase(unittest.TestCase):
     def test_convert_str_to_date(self):
         expected_result = dt(2010, 01, 01)
         self.assertEqual(expected_result, bovespa_parser.convert_str_to_date('20100101'))
-
-
-class DatabaseTestCase(unittest.TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def test_insert_database(self):
-        self.assertEqual(True, False)
-
-if __name__ == '__main__':
-    unittest.main()

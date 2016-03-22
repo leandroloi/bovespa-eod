@@ -4,7 +4,7 @@ from datetime import timedelta as td
 from StringIO import StringIO
 from dateutil.relativedelta import relativedelta
 from utils.download_manager import DownloadManager
-import parsers.bovespa_parser as parser
+import parsers.bovespa_parser as bovespa_parser
 import zipfile
 
 __author__ = 'leandroloi'
@@ -51,16 +51,9 @@ class Bovespa(object):
 
         return result
 
-    def update(self, list_files):
-        for f in list_files:
-            compressed_file = self.download_manager.get_page(self.historic_path_url + f)
-            uncompressed_file = Bovespa.extract_zipfile(StringIO(compressed_file))
-            processed_data = parser.parse_historic_data(uncompressed_file)
-            # Todo send processed data to be stored
-
     def download_list_of_files_from_page(self, uri):
         page = self.download_manager.get_page(uri)
-        files = parser.parse_historic_form_files(page)
+        files = bovespa_parser.parse_historic_form_files(page)
         return files
 
     @staticmethod

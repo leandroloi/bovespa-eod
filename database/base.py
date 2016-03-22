@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-from sqlalchemy import *
+import urlparse
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -13,18 +13,20 @@ __status__ = "Development"
 class DaoBase:
     __metaclass__ = ABCMeta
 
-    def __init__(self, name, conn, conn_port, user, password):
+    def __init__(self, name, database_url):
         self.name = name
-        self.conn = conn
-        self.conn_port = conn_port
-        self.user = user
-        self.password = password
+        self.database_url = database_url
+        db = urlparse.urlparse(database_url)
+        self.user = db.username
+        self.password = db.password
+        self.port = db.port
+        self.database = db.path[:1]
 
     @abstractmethod
-    def get_connection(self): pass
+    def store(self, **kwargs): pass
 
     @abstractmethod
-    def store_eod_data(self, quote): pass
+    def update(self, **kwargs): pass
 
 
 
