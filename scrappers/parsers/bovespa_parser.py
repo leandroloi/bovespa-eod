@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
 import logging
-from bs4 import BeautifulSoup as Bs
 from datetime import datetime as dt
-
-import itertools
-import line_profiler
+from bs4 import BeautifulSoup as Bs
 
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
