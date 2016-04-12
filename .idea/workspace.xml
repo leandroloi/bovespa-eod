@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a8af02f8-8598-48fc-859e-63161ebcf760" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/../Stockmarket_data/source/App.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrappers/parsers/bovespa_parser.py" afterPath="$PROJECT_DIR$/scrappers/parsers/bovespa_parser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/postgres_db.py" afterPath="$PROJECT_DIR$/database/postgres_db.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bov-eod-scrapper.iws" />
@@ -38,8 +38,8 @@
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittest_DownloadTestCase_test_list_of_files_to_download_diff_year.coverage" NAME="Unittest DownloadTestCase.test_list_of_files_to_download_diff_year Coverage Results" MODIFIED="1456857543510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittest_MyTestCase_test_parse_files_form.coverage" NAME="Unittest MyTestCase.test_parse_files_form Coverage Results" MODIFIED="1459082838292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittest_DownloadTestCase_test_extract_zipfile.coverage" NAME="Unittest DownloadTestCase.test_extract_zipfile Coverage Results" MODIFIED="1459344463688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittests_in_bov_eod_scrapper.coverage" NAME="Unittests in bov-eod-scrapper Coverage Results" MODIFIED="1457961357631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittests_in_test_database.coverage" NAME="Unittests in test_database Coverage Results" MODIFIED="1459342597468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittests_in_bov_eod_scrapper.coverage" NAME="Unittests in bov-eod-scrapper Coverage Results" MODIFIED="1460472228733" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittests_in_DatabaseTestCase.coverage" NAME="Unittests in DatabaseTestCase Coverage Results" MODIFIED="1457534206376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittest_DailyPriceTestCase_test_insert_spot_price.coverage" NAME="Unittest DailyPriceTestCase.test_insert_spot_price Coverage Results" MODIFIED="1460326829985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/bov-eod-scrapper$Unittest_DatabaseTestCase_test_insert_exchange__1_.coverage" NAME="Unittest DatabaseTestCase.test_insert_exchange Coverage Results" MODIFIED="1457788755735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -107,6 +107,18 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="postgres_db.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/postgres_db.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.035363458">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="test_database.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_database.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -131,10 +143,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bovespa_parser.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bovespa_parser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scrappers/parsers/bovespa_parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.102564104">
+            <state vertical-scroll-proportion="0.0">
               <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
@@ -178,16 +190,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="redis_cache.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/redis_cache.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -248,7 +250,6 @@
         <option value="$PROJECT_DIR$/models/__init__.py" />
         <option value="$PROJECT_DIR$/database/redis_cache.py" />
         <option value="$PROJECT_DIR$/scrappers/bovespa.py" />
-        <option value="$PROJECT_DIR$/database/postgres_db.py" />
         <option value="$PROJECT_DIR$/models/daily_price.py" />
         <option value="$PROJECT_DIR$/tests/res/setup_test_database.sql" />
         <option value="$PROJECT_DIR$/tests/test_controllers.py" />
@@ -260,6 +261,7 @@
         <option value="$PROJECT_DIR$/updateserver.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/scrappers/parsers/bovespa_parser.py" />
+        <option value="$PROJECT_DIR$/database/postgres_db.py" />
       </list>
     </option>
   </component>
@@ -383,6 +385,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bov-eod-scrapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bov-eod-scrapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -414,7 +430,7 @@
       <recent name="$PROJECT_DIR$/tests/res" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.updateserver">
+  <component name="RunManager" selected="Python tests.Unittests in bov-eod-scrapper">
     <configuration default="false" name="Unittest DownloadTestCase.test_update" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -429,29 +445,6 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_controllers.py" />
       <option name="CLASS_NAME" value="DownloadTestCase" />
       <option name="METHOD_NAME" value="test_update" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest DownloadTestCase.test_parse_trailer" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="bov-eod-scrapper" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_download.py" />
-      <option name="CLASS_NAME" value="DownloadTestCase" />
-      <option name="METHOD_NAME" value="test_parse_trailer" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -518,6 +511,29 @@
       <option name="METHOD_NAME" value="test_insert_spot_price" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in bov-eod-scrapper" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="bov-eod-scrapper" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="$PROJECT_DIR$" />
+      <option name="TEST_TYPE" value="TEST_FOLDER" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -768,18 +784,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in tests" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest DownloadTestCase.test_update" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest DownloadTestCase.test_parse_trailer" />
-      <item index="3" class="java.lang.String" itemvalue="Python.updateserver" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_download" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest DailyPriceTestCase.test_insert_spot_price" />
+      <item index="2" class="java.lang.String" itemvalue="Python.updateserver" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_download" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest DailyPriceTestCase.test_insert_spot_price" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittests in bov-eod-scrapper" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.updateserver" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest DownloadTestCase.test_update" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest DailyPriceTestCase.test_insert_spot_price" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_download" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest DownloadTestCase.test_parse_trailer" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in bov-eod-scrapper" />
+        <item index="1" class="java.lang.String" itemvalue="Python.updateserver" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest DownloadTestCase.test_update" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest DailyPriceTestCase.test_insert_spot_price" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_download" />
       </list>
     </recent_temporary>
   </component>
@@ -807,7 +823,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="27" width="1920" height="1053" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -816,8 +832,9 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32733223" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4182015" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20910075" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4182015" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32747602" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20910075" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24121405" sideWeight="0.5807504" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -829,7 +846,6 @@
       <window_info id="Heroku" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32842106" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41898528" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779455" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20785597" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1182,14 +1198,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/postgres_db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_controllers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1298,9 +1306,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scrappers/parsers/bovespa_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.102564104">
+        <state vertical-scroll-proportion="0.0">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/postgres_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.035363458">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

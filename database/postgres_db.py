@@ -3,12 +3,12 @@ from contextlib import contextmanager
 import logging
 from math import ceil
 from time import sleep
+
 import psycopg2
 from psycopg2._psycopg import IntegrityError
 from psycopg2.extras import RealDictCursor
+
 from database.base import DaoBase
-import pandas.io.sql as psql
-from pandas import DataFrame
 
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
