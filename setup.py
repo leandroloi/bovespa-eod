@@ -14,5 +14,11 @@ setup(
     version = '1',
     author = 'Leandro Loi',
     description = ('A End Of Day scrapper and API for Bovespa'),
-    license = 'Open Source'
+    license = 'Open Source',
+    entry_points={
+        'console_scripts': [
+            'update = updateserver',
+          ]},
+    zip_safe=False
+
 )

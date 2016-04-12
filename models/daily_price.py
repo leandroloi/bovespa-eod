@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from sqlalchemy import Column, Integer, ForeignKey, DateTime, Numeric, BigInteger, String
-from sqlalchemy.orm import relationship
-
-from models import Base, save_obj, save_bulk_objs
-
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -17,49 +12,61 @@ __status__ = "Development"
 logger = logging.getLogger(__name__)
 
 
-class DailyPriceMgr(object):
-    @staticmethod
-    def store(**kwargs):
-        obj = DailyPrice(**kwargs)
-        save_obj(obj)
+class DailyPrice(object):
+    def __init__(self, db):
+        self.db = db
+        self.schema = 'historic.'
 
-    @staticmethod
-    def bulk_store(daily_price_list=[]):
-        save_bulk_objs(daily_price_list)
+    def __store_prices(self, table, values=[]):
+        # Create the insert strings
+        column_str = "price_date, cod_dbi, ticker, tpmerc, especi, prazot, open_price, high_price, low_price, " \
+                     "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
+                     "ptoexec, codisi, dismes"
+        insert_str = ("%s, " * 23)[:-2]
+        final_str = "INSERT INTO %s (%s) VALUES (%s)" % (table, column_str, insert_str)
 
+        self.db.insert_many(final_str, values)
 
-class DailyPrice(Base):
-    __tablename__ = 'daily_price'
+    def store_spot_prices(self, values=[]):
+        self.__store_prices(self.schema + 'spot', values)
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    price_date = Column(DateTime, nullable=False)
-    created_date = Column(DateTime, nullable=False)
-    last_updated_date = Column(DateTime, nullable=False)
-    open_price = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    high_price = Column(Numeric(precision=19, scle=4, asdecimal=True), nullable=True)
-    low_price = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    close_price = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    avg_price = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    adj_close_price = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    volume = Column(BigInteger, nullable=True)
+    def store_option_prices(self, values=[]):
+        self.__store_prices(self.schema + 'option', values)
 
-    # specific to bovespa
-    cod_dbi = Column(Integer, nullable=True)  # ForeignKey
-    especi = Column(String(10), nullable=True)
-    ptoexec = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    preofv = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    prazot = Column(Integer, nullable=True)
-    preexe = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    preofc = Column(Numeric(precision=19, scale=4, asdecimal=True), nullable=True)
-    tpmerc = Column(Integer, nullable=True)
-    codisi = Column(String(12), nullable=True)
-    datven = Column(DateTime, nullable=True)
-    indopc = Column(Integer, nullable=True)
-    dismes = Column(Integer, nullable=True)
-    fatcot = Column(Integer, nullable=True)
-    totneg = Column(Integer, nullable=True)
-    quatot = Column(Integer, nullable=True)
+    def store_auction_prices(self, values=[]):
+        self.__store_prices(self.schema + 'auction', values)
 
-    symbol_id = Column(Integer, ForeignKey("symbol.id"))
-    data_vendor = relationship('DataVendor')
+    def store_fractionary_prices(self, values=[]):
+        self.__store_prices(self.schema + 'fractionary', values)
 
+    def store_term_prices(self, values=[]):
+        self.__store_prices(self.schema + 'term', values)
+
+    def store_future_prices(self, values=[]):
+        self.__store_prices(self.schema + 'future', values)
+
+    def load_price(self, symbols, type, start_date, end_date):
+        results = []
+        column_str = "price_date, cod_dbi, ticker, tpmerc, especi, prazot, open_price, high_price, low_price, " \
+                     "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
+                     "ptoexec, codisi, dismes"
+        tickers = tuple(symbols)
+        #st_date = start_date.date().strftime('%Y-%m-%d ')
+        #e_date = end_date.date().strftime('%Y-%m-%d')
+        final_query = 'SELECT {col} from {tab} WHERE ticker IN {ticker} AND ' \
+                      'price_date BETWEEN \'{start_date}\' AND \'{end_date}\''.format(col=column_str, ticker=tickers,
+                                                                                      tab=self.schema + type,
+                                                                                      start_date=start_date,
+                                                                                      end_date=end_date)
+        print final_query
+        resp = self.db.fetchall(final_query)
+        return resp
+
+        # def load_prices(self):
+        #     sql = """SELECT dp.price_date, dp.adj_close_price
+        #      FROM securities.symbol AS sym
+        #      INNER JOIN securities.daily_price AS dp
+        #      ON dp.symbol_id = sym.id
+        #
+        #      ORDER BY dp.price_date ASC;"""
+        #     return self.db.load(sql)

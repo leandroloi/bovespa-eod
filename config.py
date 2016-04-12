@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-
+import urlparse
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -13,37 +13,48 @@ __status__ = "Development"
 class Config(object):
     DEBUG = False
     TESTING = False
-    DATABASE_URL = os.environ.get("DATABASE_URL")
-    STAGING_DATABASE_URL = os.environ.get("STAGING_DATABASE_URL")
-    DEVELOPMENT_DATABASE_URL = os.environ.get("DEVELOPMENT_DATABASE_URL", 'postgres://postgres:1q2w3e4r5t@localhost:5432/securities_master_test')
 
-
+    @staticmethod
+    def get_database_from_url(url, netloc='postgres'):
+        urlparse.uses_netloc.append(netloc)
+        url = urlparse.urlparse(url)
+        return dict(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port,
+            database_url=url
+        )
 
 
 class ProductionConfig(Config):
+    CONFIG_TYPE = 'PRODUCTION'
     DEBUG = False
-    SQLALCHEMY_CONFIG = {'sqlalchemy.url': Config.DATABASE_URL, 'sqlalchemy.echo': 'False', 'pool_size': 5}
+    CACHE = True
     REDIS_URL = os.environ.get('REDIS_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
 class StagingConfig(Config):
-    DEVELOPMENT = True
+    CONFIG_TYPE = 'STAGING'
     DEBUG = True
-    SQLALCHEMY_CONFIG = {'sqlalchemy.url': Config.STAGING_DATABASE_URL, 'sqlalchemy.echo': 'False', 'pool_size': 5}
+    CACHE = True
     REDIS_URL = os.environ.get('REDIS_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
 class DevelopmentConfig(Config):
-    DEVELOPMENT = True
+    CONFIG_TYPE = 'DEVELOPMENT'
     DEBUG = True
-    SQLALCHEMY_CONFIG = {'sqlalchemy.url': Config.DEVELOPMENT_DATABASE_URL, 'sqlalchemy.echo': 'True', 'pool_size': 5}
+    CACHE = True
     REDIS_URL = os.environ.get('REDIS_URL')
-
+    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://postgres:1q2w3e4r5t@localhost:5432/bovespa2')
 
 
 class TestingConfig(Config):
-    TESTING = True
+    CONFIG_TYPE = 'TEST'
     DEBUG = True
-    SQLALCHEMY_CONFIG = {'sqlalchemy.url': Config.DEVELOPMENT_DATABASE_URL, 'sqlalchemy.echo': 'False', 'pool_size': 5,
-                         'convert_unicode': True}
-    REDIS_URL = os.environ.get('REDIS_URL')
+    CACHE = True
+    REDIS_URL = os.environ.get('REDIS_URL', 'redis://h:pfoinid3egvofn354utk8bvmij@ec2-107-22-209-183.compute-1.amazonaws.com:15059')
+    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://postgres:1q2w3e4r5t@localhost:5432/bovespa2')

@@ -3,9 +3,12 @@ from datetime import datetime as dt
 from datetime import timedelta as td
 from StringIO import StringIO
 from dateutil.relativedelta import relativedelta
-from utils.download_manager import DownloadManager
+from utils.browser import Browser
 import parsers.bovespa_parser as bovespa_parser
-import zipfile
+from utils.tools import uncompress_zipfile
+
+
+
 
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
@@ -18,14 +21,14 @@ __status__ = "Development"
 
 class Bovespa(object):
     def __init__(self):
-        self.download_manager = DownloadManager()
-        self.historic_path_url = 'http://www.bmfbovespa.com.br/InstDados/SerHist/'
+        self.__browser = Browser()
+        self.bovespa_url_base = 'http://bvmf.bmfbovespa.com.br'
 
     @staticmethod
-    def list_of_files_to_download(files_list, last_update, current_date=dt.today()):
+    def __files_from_period(files_list, last_update, current_date=dt.today()):
         result = []
         file_avaliable = None
-        while last_update <= current_date:
+        while last_update.date() <= current_date.date():
             day = last_update.day
             month = last_update.month
             if day < 10:
@@ -51,13 +54,19 @@ class Bovespa(object):
 
         return result
 
-    def download_list_of_files_from_page(self, uri):
-        page = self.download_manager.get_page(uri)
-        files = bovespa_parser.parse_historic_form_files(page)
+    def __available_files(self):
+        url = self.bovespa_url_base + '/pt-br/cotacoes-historicas/FormSeriesHistoricasArq.asp'
+        page = self.__browser.get_page(url)
+        files = bovespa_parser.parse_files_form(page)
         return files
 
-    @staticmethod
-    def extract_zipfile(compressed_file):
-        z = zipfile.ZipFile(compressed_file)
-        for name in z.namelist():
-            return StringIO(z.open(name).read())
+    def select_files(self, start_dt, finish_dt=dt.now()):
+        available_files = self.__available_files()
+        return self.__files_from_period(available_files, start_dt, finish_dt)
+
+    def download_file(self, file_name):
+        url = self.bovespa_url_base + '/InstDados/SerHist/'
+        downloaded_file = self.__browser.get_page(url + file_name)
+        compressed_file = StringIO(downloaded_file)
+        uncompressed_file = uncompress_zipfile(compressed_file)
+        return uncompressed_file

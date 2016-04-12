@@ -11,7 +11,7 @@ __email__ = "leandroloi at gmail dot com"
 __status__ = "Development"
 
 
-class DownloadManager:
+class Browser:
 
     def __init__(self):
 

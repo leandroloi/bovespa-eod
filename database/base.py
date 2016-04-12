@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-import urlparse
+from . import initial_config
+import logging
+
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -9,26 +11,21 @@ __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
 __status__ = "Development"
 
+logger = logging.getLogger(__name__)
 
-class DaoBase:
+
+class DaoBase(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, name, database_url):
-        self.name = name
-        self.database_url = database_url
-        db = urlparse.urlparse(database_url)
-        self.user = db.username
-        self.password = db.password
-        self.port = db.port
-        self.database = db.path[:1]
+    def __init__(self, database_name, settings):
+        self.db = initial_config(settings)
+        self.database_name = database_name
 
     @abstractmethod
-    def store(self, **kwargs): pass
+    def get_cursor(self): pass
 
     @abstractmethod
-    def update(self, **kwargs): pass
+    def insert(self, insert_str, value_str): pass
 
-
-
-
-
+    @abstractmethod
+    def insert_many(self, insert_str, values=[]): pass

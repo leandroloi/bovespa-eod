@@ -127,7 +127,11 @@
             <object-type name="CLUSTER" enabled="true" />
             <object-type name="DBLINK" enabled="true" />
           </object-type-filter>
-          <object-name-filters />
+          <object-name-filters>
+            <filter join-type="AND" object-type="schema">
+              <simple-condition operator="EQUAL" text="*" />
+            </filter>
+          </object-name-filters>
         </object-filters>
       </connection>
       <connection id="e60d1787-4e25-4267-b2ba-3900d4ffb204" active="true">

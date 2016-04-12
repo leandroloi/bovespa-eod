@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
-from sqlalchemy.orm import relationship
-from models import Base
-
+import logging
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -11,21 +8,25 @@ __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
 __status__ = "Development"
 
+logger = logging.getLogger(__name__)
 
-class Symbol(Base):
-    __tablename__ = 'symbol'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+class Symbol(object):
+    def __init__(self, db):
+        self.db = db
 
-    ticker = Column(String(32), nullable=False, index=True)
-    instrument = Column(String(64), nullable=True)
-    name = Column(String(255), nullable=True)
-    sector = Column(String(255), nullable=True)
-    currency = Column(String(32), nullable=True)
-    created_date = Column(DateTime, nullable=False)
-    last_updated_date = Column(DateTime, nullable=False)
+    def store_symbols(self, symbols=[]):
+        # Create the insert strings
+        column_str = "exchange_id, ticker, instrument, name, sector, currency, created_date, last_updated_date"
+        insert_str = ("%s, " * 8)[:-2]
+        final_str = "INSERT INTO securities.symbol (%s) VALUES (%s)" % (column_str, insert_str)
+        logger.debug(final_str, len(symbols))
+        self.db.insert_many(final_str, symbols)
 
-    # Relationships
-    exchange_id = Column(Integer, ForeignKey("exchange.id"))
-    exchange = relationship('Exchange', back_populates='symbol')
-    daily_price = relationship('DailyPrice')
+    def store_symbol(self, symbol):
+        # Create the insert strings
+        column_str = "exchange_id, ticker, instrument, name, sector, currency, created_date, last_updated_date"
+        insert_str = ("%s, " * 8)[:-2]
+        final_str = "INSERT INTO securities.symbol (%s) VALUES (%s) " % (column_str, insert_str)
+        logger.debug(final_str, len(symbol))
+        self.db.insert(final_str, symbol)
