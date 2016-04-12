@@ -2,7 +2,7 @@
 from datetime import datetime as dt
 from datetime import timedelta as td
 import logging
-from config import ProductionConfig
+from config import TestingConfig
 from controllers.update import Update
 from models import initialize_database
 from database.redis_cache import RedisCache
@@ -20,19 +20,19 @@ logger = logging.getLogger(__name__)
 
 def update_database():
     logger.info('Start update database...')
-    logger.info('Config type: {type}'.format(type=ProductionConfig.CONFIG_TYPE))
-    settings = ProductionConfig.get_database_from_url(ProductionConfig.DATABASE_URL)
+    logger.info('Config type: {type}'.format(type=TestingConfig.CONFIG_TYPE))
+    settings = TestingConfig.get_database_from_url(TestingConfig.DATABASE_URL)
     db = initialize_database(settings)
-    cache = RedisCache(ProductionConfig.REDIS_URL)
+    cache = RedisCache(TestingConfig.REDIS_URL)
     update = Update(db)
     last_update_str = cache.get('bov-eod-scrapper:last_update')
     if not last_update_str:
-        last_update_str = '2016-01-01 00:00:00'
+        last_update_str = '2016-01-01 0:0:0'
     last_update = dt.strptime(last_update_str, '%Y-%m-%d %H:%M:%S')
     from_date = last_update + td(days=1)
     end_date = dt.now()
     update.update_daily_data(from_date, end_date)
-    cache.add('bov-eod-scrapper:last_update', end_date)
+    cache.add('bov-eod-scrapper:last_update', dt.strftime(end_date, '%Y-%m-%d %H:%M:%S'))
     logger.info('Database EOD has been updated.')
 
 update_database()
