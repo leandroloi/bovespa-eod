@@ -19,6 +19,10 @@ logger = logging.getLogger(__name__)
 
 
 def update_database():
+    """
+        Method called to update the database.
+
+    """
     logger.info('Start update database...')
     logger.info('Config type: {type}'.format(type=TestingConfig.CONFIG_TYPE))
     settings = TestingConfig.get_database_from_url(TestingConfig.DATABASE_URL)

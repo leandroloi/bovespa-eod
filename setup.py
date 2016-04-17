@@ -10,11 +10,11 @@ __status__ = "Development"
 from setuptools import setup
 
 setup(
-    name = 'bov-eod-scrapper',
-    version = '1',
-    author = 'Leandro Loi',
-    description = ('A End Of Day scrapper and API for Bovespa'),
-    license = 'Open Source',
+    name='bov-eod-scrapper',
+    version='1',
+    author='Leandro Loi',
+    description=('A End Of Day scrapper and API for Bovespa'),
+    license='Open Source',
     entry_points={
         'console_scripts': [
             'update = updateserver',

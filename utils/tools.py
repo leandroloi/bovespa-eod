@@ -15,6 +15,11 @@ logger = logging.getLogger(__name__)
 
 
 def uncompress_zipfile(compressed_file):
+    """
+        Uncompress StringIO files in Zip format.
+    :type compressed_file: StringIO
+    :return: flat format (.TXT)
+    """
     try:
         if zipfile.is_zipfile(compressed_file):
             z = zipfile.ZipFile(compressed_file)

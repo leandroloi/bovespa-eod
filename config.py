@@ -49,12 +49,12 @@ class DevelopmentConfig(Config):
     DEBUG = True
     CACHE = True
     REDIS_URL = os.environ.get('REDIS_URL')
-    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://postgres:1q2w3e4r5t@localhost:5432/bovespa2')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
 class TestingConfig(Config):
     CONFIG_TYPE = 'TEST'
     DEBUG = True
     CACHE = True
-    REDIS_URL = os.environ.get('REDIS_URL', 'redis://h:pfoinid3egvofn354utk8bvmij@ec2-107-22-209-183.compute-1.amazonaws.com:15059')
-    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://postgres:1q2w3e4r5t@localhost:5432/bovespa2')
+    REDIS_URL = os.environ.get('REDIS_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')

@@ -23,6 +23,12 @@ logging.basicConfig()
 
 
 class PostgresDataBase(DaoBase):
+    """
+        Database class, responsible for manage the inserts, query and deletes.
+    :type settings: dict or str or Any
+    :raise Exception:
+    """
+
     def __init__(self, settings):
         if settings:
             super(PostgresDataBase, self).__init__('Postgres', settings)
@@ -32,6 +38,10 @@ class PostgresDataBase(DaoBase):
 
     @contextmanager
     def get_cursor(self):
+        """
+            Get a cursor from a pool. Allowing to make thread inserts.
+
+        """
         got_connection = False
         while not got_connection:
             try:
@@ -53,6 +63,11 @@ class PostgresDataBase(DaoBase):
                 self.db.putconn(con)
 
     def insert(self, insert_str, value_str):
+        """
+            Insert in the databased based on the insert_str the values. The values must be a tuple.
+        :type insert_str: str
+        :type value_str: tuple or list
+        """
         with self.get_cursor() as cur:
             try:
                 cur.execute(insert_str, value_str)
@@ -62,6 +77,12 @@ class PostgresDataBase(DaoBase):
                 logger.error(e)
 
     def insert_many(self, insert_str, values=[]):
+        """
+            Insert in the database a large numbers of values. It manages a list bigger than a 1000 values, avoiding
+            overflows at database level.
+        :type insert_str: str
+        :type values: list or set
+        """
         with self.get_cursor() as cur:
             for i in range(0, int(ceil(len(values) / 1000.0))):
                 try:
@@ -74,6 +95,11 @@ class PostgresDataBase(DaoBase):
                     logger.error(e)
 
     def fetchall(self, query):
+        """
+            Recovery all data, based on a query.
+        :type query: str
+        :return: Cursor result
+        """
         with self.get_cursor() as cur:
             result = None
             try:

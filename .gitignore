@@ -24,3 +24,5 @@ pip-log.txt
 #Translations
 *.mo
 
+#pycharm
+.idea

@@ -50,7 +50,7 @@ class DownloadTestCase(unittest.TestCase):
         f = os.path.join(os.path.abspath(os.path.dirname(__file__))) + '/res/COTAHIST_D29022016.TXT'
         fh = open(f, 'rb')
         try:
-            bovespa_parser.parse_historic_file(fh,0)
+            bovespa_parser.parse_historic_file(fh)
             self.assertEqual(True, True)
         except Exception, e:
             self.assertEqual(True, False, e)
@@ -86,7 +86,7 @@ class DownloadTestCase(unittest.TestCase):
         f = os.path.join(os.path.abspath(os.path.dirname(__file__))) + '/res/COTAHIST_D29022016_EXCEPTION.TXT'
         fh = open(f, 'rb')
         try:
-            bovespa_parser.parse_historic_file(fh,0)
+            bovespa_parser.parse_historic_file(fh)
         except Exception, e:
             self.assertEqual(True, True)
 

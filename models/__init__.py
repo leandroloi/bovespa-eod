@@ -11,6 +11,12 @@ __status__ = "Development"
 
 
 def initialize_database(settings):
+    """
+
+    :type settings: dict
+    :return:
+    :raise e:
+    """
     try:
         return PostgresDataBase(settings)
     except Exception, e:

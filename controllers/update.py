@@ -19,21 +19,36 @@ logger = logging.getLogger(__name__)
 
 class Update(object):
 
+    """
+        This class is responsible for the daily database update.
+
+    :type database: database.postgres_db.PostgresDataBase
+    """
+
     def __init__(self, database):
         self.bovespa = bvmf.Bovespa()
         self.database = database
 
     def update_daily_data(self, start_date, end_date):
+        """
+            Updates database based on the start and end date.
+        :type start_date: datetime.datetime
+        :type end_date: datetime.datetime
+        """
         filename_list = self.bovespa.select_files(start_date, end_date)
         for filename in filename_list:
             data_file = self.bovespa.download_file(filename)
             self.process_update_file(data_file)
 
     def process_update_file(self, data_file):
+        """
+            Process the downloaded and uncompressed datafile and make threads to store faster in each table.
+        :type data_file: file or Any or StringIO
+        """
         price_daily = DailyPrice(self.database)
         if data_file:
-            parsed_equities = bovespa_parser.parse_historic_file(data_file, 0)
-            for equitie_type, equities in parsed_equities.iteritems():
+            parsed_equities = bovespa_parser.parse_historic_file(data_file)
+            for equitie_type, equities in parsed_equities.iteritems():  # Based on each stock type stores.
                 logger.debug(equitie_type + ': {}'.format(len(equities)))
                 if 'spot' in equitie_type:
                     spot = Thread(name='Spot', target=price_daily.store_spot_prices, args=(equities,))
@@ -56,4 +71,4 @@ class Update(object):
 
         else:
             logger.error('Error on process update file.')
-            # retry 3 times otherwise notify
+            # Should retry 3 times otherwise notify by email

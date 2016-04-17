@@ -15,6 +15,11 @@ logger = logging.getLogger(__name__)
 
 
 class DaoBase(object):
+    """
+
+    :type database_name: str
+    :type settings: dict or str or Any
+    """
     __metaclass__ = ABCMeta
 
     def __init__(self, database_name, settings):

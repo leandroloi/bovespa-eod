@@ -9,7 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 def initial_config(settings):
-    """Called by the app on startup to setup bindings to the DB"""
+    """Called by the app on startup to setup bindings to the DB
+    :param settings: Database settings, like database,port, user, password
+    """
     try:
 
         conn = psycopg2.pool.ThreadedConnectionPool(1, 10, database=settings.get('database'), user=settings.get('user'),

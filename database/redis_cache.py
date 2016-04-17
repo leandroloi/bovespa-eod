@@ -11,16 +11,32 @@ __status__ = "Development"
 
 class RedisCache(object):
 
+    """
+        A class responsible for cache and to manage update values.
+    :type redis_url: Any or str
+    """
+
     def __init__(self, redis_url):
         self.r = redis.from_url(redis_url)
 
     def add(self, key, value):
+        """
+            Add the value in the cache.
+        :type key: str
+        :type value: datetime.datetime
+        """
         try:
             self.r.set(key, value)
         except Exception, e:
             print e
 
     def get(self, key):
+        """
+            Recover the value from the key
+
+        :type key: str
+        :return: Value from the key
+        """
         try:
             return self.r.get(key)
         except Exception, e:

@@ -7,9 +7,6 @@ from utils.browser import Browser
 import parsers.bovespa_parser as bovespa_parser
 from utils.tools import uncompress_zipfile
 
-
-
-
 __author__ = 'leandroloi'
 __credits__ = ["Leandro Loi"]
 __license__ = "GPL"
@@ -20,12 +17,24 @@ __status__ = "Development"
 
 
 class Bovespa(object):
+    """
+        Class responsible to manage the operations with the website of bovespa.
+    """
+
     def __init__(self):
         self.__browser = Browser()
         self.bovespa_url_base = 'http://bvmf.bmfbovespa.com.br'
 
     @staticmethod
-    def __files_from_period(files_list, last_update, current_date=dt.today()):
+    def _files_from_period(files_list, last_update, current_date=dt.today()):
+        """
+            From all the files available in the website, selects only the ones between the range date
+            ( last update, current date)
+        :param files_list: List of the files available on the Bovespa website
+        :param last_update: Last time the update was made
+        :param current_date: Current time ( normally today )
+        :return: list of files to be download
+        """
         result = []
         file_avaliable = None
         while last_update.date() <= current_date.date():
@@ -54,17 +63,32 @@ class Bovespa(object):
 
         return result
 
-    def __available_files(self):
+    def _available_files(self):
+        """
+            Get all the file names available to download on the bovespa website.
+        :return : List of available files in the website
+        """
         url = self.bovespa_url_base + '/pt-br/cotacoes-historicas/FormSeriesHistoricasArq.asp'
         page = self.__browser.get_page(url)
         files = bovespa_parser.parse_files_form(page)
         return files
 
     def select_files(self, start_dt, finish_dt=dt.now()):
-        available_files = self.__available_files()
-        return self.__files_from_period(available_files, start_dt, finish_dt)
+        """
+            Select the files to be download to update the database
+        :type start_dt: datetime.datetime
+        :type finish_dt: datetime.datetime
+        :return: List of files to download based on the start and finish date
+        """
+        available_files = self._available_files()
+        return self._files_from_period(available_files, start_dt, finish_dt)
 
     def download_file(self, file_name):
+        """
+            Download a file from bovespa historic website, and returns uncompressed.
+        :type file_name: str
+        :return: A TXT file.
+        """
         url = self.bovespa_url_base + '/InstDados/SerHist/'
         downloaded_file = self.__browser.get_page(url + file_name)
         compressed_file = StringIO(downloaded_file)

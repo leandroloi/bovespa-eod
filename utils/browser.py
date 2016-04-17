@@ -11,7 +11,11 @@ __email__ = "leandroloi at gmail dot com"
 __status__ = "Development"
 
 
-class Browser:
+class Browser(object):
+
+    """
+        A web browser to navigate on the Bovespa website, with cookies.
+    """
 
     def __init__(self):
 
@@ -27,16 +31,21 @@ class Browser:
         self.browser = requests.Session()
         self.browser.headers.update(headers)
 
-    def get_page(self, uri):
+    def get_page(self, url):
+        """
+            Return a HTML web page from the param
+        :param url: str
+        :return: HTML web site
+        :raise e: If a error on process
+        """
         try:
             for tries in xrange(0, 4):
-                resp = self.browser.get(uri)
+                resp = self.browser.get(url)
                 if resp.status_code == requests.codes.ok:
                     return resp.content
                 else:
                     time.sleep(10)
-            raise Exception('The uri {uri} can not be downloaded. Check the your uri and try again.'.format(uri=uri))
+            raise Exception('The uri {uri} can not be downloaded. Check the your uri and try again.'.format(uri=url))
 
         except Exception, e:
             raise e
-

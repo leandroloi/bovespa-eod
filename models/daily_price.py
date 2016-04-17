@@ -13,6 +13,11 @@ logger = logging.getLogger(__name__)
 
 
 class DailyPrice(object):
+    """
+        Daily price model.
+    :type db: database.postgres_db.PostgresDataBase
+    """
+
     def __init__(self, db):
         self.db = db
         self.schema = 'historic.'
@@ -28,6 +33,10 @@ class DailyPrice(object):
         self.db.insert_many(final_str, values)
 
     def store_spot_prices(self, values=[]):
+        """
+
+        :type values: list
+        """
         self.__store_prices(self.schema + 'spot', values)
 
     def store_option_prices(self, values=[]):
