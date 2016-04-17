@@ -1,2 +1,2 @@
 # bovespa-eod
- This project it's a person project to promote Bovespa algorith trading providing a way to have a Bovespa database to test your ideas.
+ This project is a person project to promote Bovespa algorithm trading. It aims to provide a database to test your ideas and algorithms. 
