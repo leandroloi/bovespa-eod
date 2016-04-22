@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-import logging
+from config import LoggerLoader
 
 __author__ = 'leandroloi'
-__credits__ = ["Leandro Loi"]
 __license__ = "GPL"
 __version__ = "0.0.1"
 __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
-__status__ = "Development"
 
-logger = logging.getLogger(__name__)
+logger = LoggerLoader(__name__).get_logger()
 
 
 class DailyPrice(object):
@@ -60,8 +58,8 @@ class DailyPrice(object):
                      "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
                      "ptoexec, codisi, dismes"
         tickers = tuple(symbols)
-        #st_date = start_date.date().strftime('%Y-%m-%d ')
-        #e_date = end_date.date().strftime('%Y-%m-%d')
+        # st_date = start_date.date().strftime('%Y-%m-%d ')
+        # e_date = end_date.date().strftime('%Y-%m-%d')
         final_query = 'SELECT {col} from {tab} WHERE ticker IN {ticker} AND ' \
                       'price_date BETWEEN \'{start_date}\' AND \'{end_date}\''.format(col=column_str, ticker=tickers,
                                                                                       tab=self.schema + type,

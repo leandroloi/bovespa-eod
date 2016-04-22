@@ -12,25 +12,6 @@ SET client_min_messages = warning;
 
 CREATE SCHEMA historic;
 
-
---
--- TOC entry 6 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-
-
-
---
--- TOC entry 2919 (class 0 OID 0)
--- Dependencies: 6
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
-
 SET search_path = historic, pg_catalog;
 
 SET default_tablespace = '';

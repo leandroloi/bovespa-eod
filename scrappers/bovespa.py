@@ -3,17 +3,18 @@ from datetime import datetime as dt
 from datetime import timedelta as td
 from StringIO import StringIO
 from dateutil.relativedelta import relativedelta
+from config import LoggerLoader
 from utils.browser import Browser
 import parsers.bovespa_parser as bovespa_parser
 from utils.tools import uncompress_zipfile
 
 __author__ = 'leandroloi'
-__credits__ = ["Leandro Loi"]
 __license__ = "GPL"
 __version__ = "0.0.1"
 __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
-__status__ = "Development"
+
+logger = LoggerLoader(__name__).get_logger()
 
 
 class Bovespa(object):

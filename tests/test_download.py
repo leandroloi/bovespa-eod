@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
-from decimal import Decimal
 import unittest
 from datetime import datetime as dt
+
 import fakeredis
 import os
+
 from scrappers.bovespa import Bovespa
 from scrappers.parsers import bovespa_parser
 from utils.browser import Browser
 from utils.tools import uncompress_zipfile
 
 __author__ = 'leandroloi'
-__credits__ = ["Leandro Loi"]
 __license__ = "GPL"
 __version__ = "0.0.1"
 __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
-__status__ = "Development"
+
+
 
 
 class DownloadTestCase(unittest.TestCase):

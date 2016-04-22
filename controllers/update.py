@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
-import logging
 from threading import Thread
-
+from config import LoggerLoader
 from models.daily_price import DailyPrice
 import scrappers.bovespa as bvmf
 from scrappers.parsers import bovespa_parser
 
 __author__ = 'leandroloi'
-__credits__ = ["Leandro Loi"]
 __license__ = "GPL"
 __version__ = "0.0.1"
 __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
-__status__ = "Development"
 
-logger = logging.getLogger(__name__)
+logger = LoggerLoader(__name__).get_logger()
 
 
 class Update(object):
-
     """
         This class is responsible for the daily database update.
 
@@ -52,21 +48,27 @@ class Update(object):
                 logger.debug(equitie_type + ': {}'.format(len(equities)))
                 if 'spot' in equitie_type:
                     spot = Thread(name='Spot', target=price_daily.store_spot_prices, args=(equities,))
+                    logger.debug('Starting thread spot')
                     spot.start()
                 elif 'option' in equitie_type:
                     option = Thread(name='Option', target=price_daily.store_option_prices, args=(equities,))
+                    logger.debug('Starting thread option')
                     option.start()
                 elif 'auction' in equitie_type:
                     auction = Thread(name='Auction', target=price_daily.store_auction_prices, args=(equities,))
+                    logger.debug('Starting thread auction')
                     auction.start()
                 elif 'fractionary' in equitie_type:
                     option = Thread(name='Fractionary', target=price_daily.store_fractionary_prices, args=(equities,))
+                    logger.debug('Starting thread fractionary')
                     option.start()
                 elif 'term' in equitie_type:
                     term = Thread(name='Term', target=price_daily.store_term_prices, args=(equities,))
+                    logger.debug('Starting thread term')
                     term.start()
                 elif 'future' in equitie_type:
                     future = Thread(name='Future', target=price_daily.store_future_prices, args=(equities,))
+                    logger.debug('Starting thread future')
                     future.start()
 
         else:

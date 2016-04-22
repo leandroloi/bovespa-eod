@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import requests
 import time
+from config import LoggerLoader
 
 __author__ = 'leandroloi'
-__credits__ = ["Leandro Loi"]
 __license__ = "GPL"
 __version__ = "0.0.1"
 __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
-__status__ = "Development"
+
+logger = LoggerLoader(__name__).get_logger()
 
 
 class Browser(object):
@@ -48,4 +49,5 @@ class Browser(object):
             raise Exception('The uri {uri} can not be downloaded. Check the your uri and try again.'.format(uri=url))
 
         except Exception, e:
+            logger.error(e)
             raise e
