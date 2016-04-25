@@ -15,7 +15,7 @@ logger = LoggerLoader(__name__).get_logger()
 class Browser(object):
 
     """
-        A web browser to navigate on the Bovespa website, with cookies.
+        A web session to navigate on the Bovespa website, with cookies.
     """
 
     def __init__(self):
@@ -29,8 +29,8 @@ class Browser(object):
                 'Upgrade-Insecure-Requests': '1',
                 'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36'
         }
-        self.browser = requests.Session()
-        self.browser.headers.update(headers)
+        self.session = requests.Session()
+        self.session.headers.update(headers)
 
     def get_page(self, url):
         """
@@ -41,7 +41,7 @@ class Browser(object):
         """
         try:
             for tries in xrange(0, 4):
-                resp = self.browser.get(url)
+                resp = self.session.get(url)
                 if resp.status_code == requests.codes.ok:
                     return resp.content
                 else:

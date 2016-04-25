@@ -8,8 +8,6 @@ __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
 
 
-
-
 def initialize_database(settings):
     """
 

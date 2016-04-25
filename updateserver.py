@@ -31,7 +31,7 @@ def update_database():
     update = Update(db)
     last_update_str = cache.get('bov-eod-scrapper:last_update')
     if not last_update_str:
-        last_update_str = '2016-04-19 0:0:0'
+        last_update_str = '2016-01-01 0:0:0'
     last_update = dt.strptime(last_update_str, '%Y-%m-%d %H:%M:%S')
     from_date = last_update + td(days=1)
     end_date = dt.now()
