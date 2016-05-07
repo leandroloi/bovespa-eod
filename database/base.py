@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-
-from . import initial_config
+import psycopg2
+import psycopg2.pool
 from config import LoggerLoader
+
 
 __author__ = 'leandroloi'
 __license__ = "GPL"
@@ -21,9 +22,9 @@ class DaoBase(object):
     """
     __metaclass__ = ABCMeta
 
-    def __init__(self, database_name, settings):
-        self.db = initial_config(settings)
-        self.database_name = database_name
+    def __init__(self):
+        from database import DatabaseLoader
+        self.db = DatabaseLoader().get_database()
 
     @abstractmethod
     def get_cursor(self): pass

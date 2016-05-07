@@ -24,12 +24,8 @@ class PostgresDataBase(DaoBase):
     :raise Exception:
     """
 
-    def __init__(self, settings):
-        if settings:
-            super(PostgresDataBase, self).__init__('Postgres', settings)
-            self.database_url = settings.get('database_url')
-        else:
-            raise Exception('Settings is none')
+    def __init__(self, connection):
+        self.db = connection
 
     @contextmanager
     def get_cursor(self):
@@ -111,15 +107,3 @@ class PostgresDataBase(DaoBase):
                 logger.error(e)
             finally:
                 return result
-
-                # def load(self, query):
-                #     with self.get_cursor() as cur:
-                #         cur.execute(query)
-                #         result = cur.fetchall()
-                #
-                #     column_names = [desc[0] for desc in cur.description]
-                #
-                #     #result = psql.read_sql_query(query, con=self.db_single, index_col='price_date')
-                #     pd_result = DataFrame(result)
-                #     print pd_result.tail()
-                #     return result

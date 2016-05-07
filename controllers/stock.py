@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-import simplejson
-from bottle import route, response, request, Bottle, error
+from collections import defaultdict
 import datetime
-from config import LoggerLoader, ProductionConfig
-from models import initialize_database
+
+import simplejson
+from bottle import response, request, Bottle
+
+from config import LoggerLoader
 from models.daily_price import DailyPrice
 
 __author__ = 'leandroloi'
@@ -14,28 +16,24 @@ __email__ = "leandroloi at gmail dot com"
 
 logger = LoggerLoader(__name__).get_logger()
 app = Bottle()
-DATE_FORMAT = '%Y-%m-%d' #%H:%M:%S'
-
-config = ProductionConfig()
-logger.info('Start update database...')
-logger.info('Config type: {type}'.format(type=config.CONFIG_TYPE))
-settings = config.get_database_from_url(config.DATABASE_URL)
-db = initialize_database(settings)
+DATE_FORMAT = '%Y-%m-%d'
 
 date_handler = lambda obj: (
     obj.isoformat()
     if isinstance(obj, datetime.datetime)
-    or isinstance(obj, datetime.date)
+       or isinstance(obj, datetime.date)
     else None
 )
+
 
 @app.error()
 @app.route('/spot/<symbol>')
 @app.route('/<symbol>')
 def spot(symbol):
-    response.content_type='application/json'
+    response.content_type = 'application/json'
     start = request.query['start']
     end = request.query['end']
+    columns = request.query['columns']
     try:
         start_date = datetime.datetime.strptime(start, DATE_FORMAT)
         end_date = datetime.datetime.strptime(end, DATE_FORMAT)
@@ -50,7 +48,12 @@ def spot(symbol):
     else:
         symbols = [symbol, '']
 
-    daily_price = DailyPrice(db)
-    results = daily_price.load_price(symbols, 'spot', start_date, end_date)
+    daily_price = DailyPrice()
+    db_result = daily_price.load_price(symbols, 'spot', start_date, end_date, columns)
+
+    results = defaultdict(list)
+    for result in db_result:
+        results.setdefault(result.get('ticker'), []).append(result)
+
     resp = simplejson.dumps(results, sort_keys=True, indent=4 * ' ', default=date_handler)
     return {resp}

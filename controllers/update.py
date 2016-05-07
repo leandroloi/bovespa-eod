@@ -21,9 +21,8 @@ class Update(object):
     :type database: database.postgres_db.PostgresDataBase
     """
 
-    def __init__(self, database):
+    def __init__(self):
         self.bovespa = bvmf.Bovespa()
-        self.database = database
 
     def update_daily_data(self, start_date, end_date):
         """
@@ -41,7 +40,7 @@ class Update(object):
             Process the downloaded and uncompressed datafile and make threads to store faster in each table.
         :type data_file: file or Any or StringIO
         """
-        price_daily = DailyPrice(self.database)
+        price_daily = DailyPrice()
         if data_file:
             parsed_equities = bovespa_parser.parse_historic_file(data_file)
             for equitie_type, equities in parsed_equities.iteritems():  # Based on each stock type stores.

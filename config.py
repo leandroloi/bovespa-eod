@@ -86,5 +86,5 @@ class TestingConfig(Config):
     DEBUG = True
     CACHE = True
     REDIS_URL = os.environ.get('REDIS_URL')
-    DATABASE_URL = os.environ.get('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://leandroloi:1q2w3e4r5t@localhost:5432/bovespa_test')
 

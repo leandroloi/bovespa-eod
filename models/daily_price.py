@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from config import LoggerLoader
+from database import DatabaseLoader
 
 __author__ = 'leandroloi'
 __license__ = "GPL"
@@ -16,8 +17,8 @@ class DailyPrice(object):
     :type db: database.postgres_db.PostgresDataBase
     """
 
-    def __init__(self, db):
-        self.db = db
+    def __init__(self):
+        self.db = DatabaseLoader().get_database()
         self.schema = 'historic.'
 
     def __store_prices(self, table, values=[]):
@@ -52,28 +53,21 @@ class DailyPrice(object):
     def store_future_prices(self, values=[]):
         self.__store_prices(self.schema + 'future', values)
 
-    def load_price(self, symbols, type, start_date, end_date):
-        results = []
-        column_str = "price_date, cod_dbi, ticker, tpmerc, especi, prazot, open_price, high_price, low_price, " \
-                     "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
-                     "ptoexec, codisi, dismes"
+    def load_price(self, symbols, type, start_date, end_date, columns=None):
+        if not columns:
+            columns = "ticker,price_date, cod_dbi, tpmerc, especi, prazot, open_price, high_price, low_price, " \
+                         "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
+                         "ptoexec, codisi, dismes"
+        if not 'ticker' in columns:
+            columns += ',ticker'
         tickers = tuple(symbols)
         # st_date = start_date.date().strftime('%Y-%m-%d ')
         # e_date = end_date.date().strftime('%Y-%m-%d')
         final_query = 'SELECT {col} from {tab} WHERE ticker IN {ticker} AND ' \
-                      'price_date BETWEEN \'{start_date}\' AND \'{end_date}\''.format(col=column_str, ticker=tickers,
-                                                                                      tab=self.schema + type,
-                                                                                      start_date=start_date,
-                                                                                      end_date=end_date)
-        print final_query
-        resp = self.db.fetchall(final_query)
-        return resp
+                      'price_date BETWEEN \'{start_date}\' AND \'{end_date}\' order by ticker, price_date DESC;'\
+            .format(col=columns, ticker=tickers, tab=self.schema + type, start_date=start_date, end_date=end_date)
 
-        # def load_prices(self):
-        #     sql = """SELECT dp.price_date, dp.adj_close_price
-        #      FROM securities.symbol AS sym
-        #      INNER JOIN securities.daily_price AS dp
-        #      ON dp.symbol_id = sym.id
-        #
-        #      ORDER BY dp.price_date ASC;"""
-        #     return self.db.load(sql)
+        logger.debug(final_query)
+        resp = self.db.fetchall(final_query)
+
+        return resp

@@ -4,7 +4,7 @@ from datetime import timedelta as td
 
 from config import ProductionConfig, LoggerLoader
 from controllers.update import Update
-from models import initialize_database
+from database import initialize_database
 from database.redis_cache import RedisCache
 
 __author__ = 'leandroloi'
@@ -16,19 +16,13 @@ __email__ = "leandroloi at gmail dot com"
 logger = LoggerLoader(__name__).get_logger()
 
 
-
-def update_database():
+def update_database(cache):
     """
         Method called to update the database.
 
     """
-    config = ProductionConfig()
-    logger.info('Start update database...')
-    logger.info('Config type: {type}'.format(type=config.CONFIG_TYPE))
-    settings = config.get_database_from_url(config.DATABASE_URL)
-    db = initialize_database(settings)
-    cache = RedisCache(config.REDIS_URL)
-    update = Update(db)
+
+    update = Update()
     last_update_str = cache.get('bov-eod-scrapper:last_update')
     if not last_update_str:
         last_update_str = '2016-01-01 0:0:0'
@@ -39,4 +33,15 @@ def update_database():
     cache.add('bov-eod-scrapper:last_update', dt.strftime(end_date, '%Y-%m-%d %H:%M:%S'))
     logger.info('Database EOD has been updated.')
 
-update_database()
+
+if __name__ == '__main__':
+    config = ProductionConfig()
+    logger.info('Start update database...')
+    logger.info('Config type: {type}'.format(type=config.CONFIG_TYPE))
+    logger.info('Database URL : {url}'.format(url=config.DATABASE_URL))
+    settings = config.get_database_from_url(config.DATABASE_URL)
+    initialize_database(settings)
+
+    cache = RedisCache(config.REDIS_URL)
+
+    update_database(cache)

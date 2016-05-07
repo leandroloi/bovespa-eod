@@ -12,7 +12,6 @@ __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
 
 
-
 def convert_to_tuple(equity):
     return (equity.get('price_date'), equity.get('cod_dbi'), equity.get('ticker'), equity.get('tpmerc'),
             equity.get('especi'), equity.get('prazot'), equity.get('open_price'), equity.get('high_price'),
@@ -24,7 +23,7 @@ def convert_to_tuple(equity):
 
 class DailyPriceTestCase(DatabaseTest):
     def setUp(self):
-        self.daily_price = DailyPrice(self.db)
+        self.daily_price = DailyPrice()
 
     def test_insert_spot_price(self):
         start_date = datetime.datetime(2016, 4, 4, 0, 0)

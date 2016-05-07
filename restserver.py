@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from models import initialize_database
+from database import initialize_database
 
 __author__ = 'leandroloi'
 __license__ = "GPL"
@@ -17,11 +17,7 @@ from controllers.infra import app as infra
 from controllers.stock import app as stock
 
 logger = LoggerLoader(__name__).get_logger()
-# config = ProductionConfig()
-# logger.info('Start update database...')
-# logger.info('Config type: {type}'.format(type=config.CONFIG_TYPE))
-# settings = config.get_database_from_url(config.DATABASE_URL)
-# db = initialize_database(settings)
+
 
 DEBUG_PORT = "8085"
 SERVER_PORT = os.environ.get("PORT", DEBUG_PORT)
@@ -36,6 +32,12 @@ app.mount(BASE_URI + '/stock', stock)
 
 if __name__ == '__main__':
     logger.info('Starting server...')
+    config = ProductionConfig()
+    logger.info('Start update database...')
+    logger.info('Config type: {type}'.format(type=config.CONFIG_TYPE))
+    settings = config.get_database_from_url(config.DATABASE_URL)
+    initialize_database(settings)
+
     if int(SERVER_PORT) == int(DEBUG_PORT):  # debugging
         app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)
     else:
