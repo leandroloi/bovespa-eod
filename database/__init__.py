@@ -38,8 +38,7 @@ class DatabaseLoader(object):
         :param settings: Database settings, like database,port, user, password
         """
         try:
-
-            conn = psycopg2.pool.ThreadedConnectionPool(1, 10, database=settings.get('database'), user=settings.get('user'),
+            conn = psycopg2.pool.SimpleConnectionPool(1, 10, database=settings.get('database'), user=settings.get('user'),
                                                         password=settings.get('password'), host=settings.get('host'),
                                                         port=settings.get('port'))
 

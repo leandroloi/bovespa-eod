@@ -40,6 +40,7 @@ class LoggerLoader(object):
 class Config(object):
     DEBUG = False
     TESTING = False
+    START_DATE = '2016-01-01 0:0:0'
     @staticmethod
     def get_database_from_url(url, netloc='postgres'):
         urlparse.uses_netloc.append(netloc)
@@ -57,8 +58,6 @@ class Config(object):
 class ProductionConfig(Config):
     CONFIG_TYPE = 'PRODUCTION'
     DEBUG = False
-    CACHE = True
-    REDIS_URL = os.environ.get('REDIS_URL')
     DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
@@ -66,8 +65,6 @@ class ProductionConfig(Config):
 class StagingConfig(Config):
     CONFIG_TYPE = 'STAGING'
     DEBUG = True
-    CACHE = True
-    REDIS_URL = os.environ.get('REDIS_URL')
     DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
@@ -75,8 +72,6 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     CONFIG_TYPE = 'DEVELOPMENT'
     DEBUG = True
-    CACHE = True
-    REDIS_URL = os.environ.get('REDIS_URL')
     DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
@@ -84,7 +79,5 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     CONFIG_TYPE = 'TEST'
     DEBUG = True
-    CACHE = True
-    REDIS_URL = os.environ.get('REDIS_URL')
-    DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://leandroloi:1q2w3e4r5t@localhost:5432/bovespa_test')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 

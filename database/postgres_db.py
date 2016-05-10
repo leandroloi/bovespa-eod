@@ -39,14 +39,13 @@ class PostgresDataBase(DaoBase):
                 con = self.db.getconn()
                 yield con.cursor(cursor_factory=RealDictCursor)
                 got_connection = True
-                con.commit()
-                con.close()
-                self.db.putconn(con)
+
             except psycopg2.OperationalError, op:
-                logger.error(op)
+                logger.error('OperationalError %s' % op)
                 sleep(2)
                 got_connection = False
             except AttributeError, ae:
+                logger.error('ae %s' % ae)
                 logger.error(ae)
                 sleep(2)
                 got_connection = False
@@ -54,10 +53,18 @@ class PostgresDataBase(DaoBase):
                 logger.error(e)
                 sleep(2)
                 got_connection = False
-                # finally:
-                #     con.commit()
-                #     con.close()
-                #     self.db.putconn(con)
+
+            finally:
+                try:
+                    if con:
+                        con.commit()
+                        con.close()
+                        self.db.putconn(con)
+                except:
+                    pass
+            #     #self.db.putconn(con)
+
+
 
     def insert(self, insert_str, value_str):
         """
