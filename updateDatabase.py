@@ -15,20 +15,23 @@ __maintainer__ = "Leandro Loi"
 __email__ = "leandroloi at gmail dot com"
 
 logger = LoggerLoader(__name__).get_logger()
+filename = open(os.path.dirname(__file__) + '/lastupdate.txt', 'rw')
+DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
 def load_last_update():
     try:
-        filename = open(os.path.dirname(__file__) + '/lastupdate.txt', 'r')
-        last_date = filename.readline()
+        last_update_str = filename.readline()
         filename.close()
+        last_date = dt.strptime(last_update_str, DATE_FORMAT)
     except:
-        return ProductionConfig.START_DATE
+        last_date = dt.strptime(ProductionConfig.START_DATE, DATE_FORMAT)
+
     return last_date
 
 
-def store_last_update(last_update):
-    filename = open("lastupdate.txt", "w")
+def store_last_update(end_date):
+    last_update = dt.strftime(end_date, DATE_FORMAT)
     filename.write(last_update)
     filename.flush()
     filename.close()
@@ -39,12 +42,11 @@ def update_database():
         Method called to update the database.
     """
     update = Update()
-    last_update_str = load_last_update()
-    last_update = dt.strptime(last_update_str, '%Y-%m-%d %H:%M:%S')
+    last_update = load_last_update()
     from_date = last_update + td(days=1)
     end_date = dt.now()
     update.update_daily_data(from_date, end_date)
-    store_last_update(dt.strftime(end_date, '%Y-%m-%d %H:%M:%S'))
+    store_last_update(end_date)
     logger.info('Database EOD has been updated.')
 
 

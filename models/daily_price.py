@@ -55,9 +55,9 @@ class DailyPrice(object):
 
     def load_price(self, symbols, type, start_date, end_date, columns=None):
         if not columns:
-            columns = "ticker,price_date, cod_dbi, tpmerc, especi, prazot, open_price, high_price, low_price, " \
-                         "avg_price, close_price, preofc, preofv, totneg, quatot, volume, preexe, indopc, datven, fatcot," \
-                         "ptoexec, codisi, dismes"
+            columns = "ticker,price_date,cod_dbi,tpmerc,especi,prazot,open_price,high_price,low_price, " \
+                         "avg_price,close_price,preofc,preofv,totneg,quatot,volume,preexe,indopc,datven,fatcot," \
+                         "ptoexec,codisi,dismes"
         if not 'ticker' in columns:
             columns += ',ticker'
         tickers = tuple(symbols)

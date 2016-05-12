@@ -40,7 +40,7 @@ class LoggerLoader(object):
 class Config(object):
     DEBUG = False
     TESTING = False
-    START_DATE = '2016-01-01 0:0:0'
+    START_DATE = '2010-01-01 0:0:0'
     @staticmethod
     def get_database_from_url(url, netloc='postgres'):
         urlparse.uses_netloc.append(netloc)

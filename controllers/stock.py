@@ -27,13 +27,20 @@ date_handler = lambda obj: (
 
 
 @app.error()
-@app.route('/spot/<symbol>')
-@app.route('/<symbol>')
-def spot(symbol):
+@app.route('/<type>/<symbol>')
+def spot(type, symbol):
+    """
+    :param type: spot or option or auction or fractionary or term or future
+    :param symbol: Any symbol of the database
+    :return:
+    """
     response.content_type = 'application/json'
     start = request.query['start']
     end = request.query['end']
-    columns = request.query['columns']
+    try:
+        columns = request.query['columns']
+    except:
+        columns = None
     try:
         start_date = datetime.datetime.strptime(start, DATE_FORMAT)
         end_date = datetime.datetime.strptime(end, DATE_FORMAT)
@@ -49,7 +56,7 @@ def spot(symbol):
         symbols = [symbol, '']
 
     daily_price = DailyPrice()
-    db_result = daily_price.load_price(symbols, 'spot', start_date, end_date, columns)
+    db_result = daily_price.load_price(symbols, type, start_date, end_date, columns)
 
     results = defaultdict(list)
     for result in db_result:

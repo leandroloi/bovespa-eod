@@ -89,7 +89,7 @@ class PostgresDataBase(DaoBase):
         """
         with self.get_cursor() as cur:
             for i in range(0, int(ceil(len(values) / 1000.0))):
-                logger.debug('Storing ' + insert_str[12:30])
+                logger.debug('Storing ' + insert_str)
                 try:
                     cur.executemany(insert_str, values[i * 1000:(i + 1) * 1000])
                 except IntegrityError, i:
